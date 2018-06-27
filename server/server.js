@@ -17,9 +17,13 @@ io.on('connection', (socket) => {
     console.log(`New user connected`);
 
     socket.emit('newMessage', {
-        from: 'patryk.senska@gmail.com',
-        text: 'test text',
-        createAt: 123
+        from: 'Admin',
+        text: 'Welcome to the chat'
+    });
+
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New user joined'
     });
 
     socket.on('disconnect', () => {
@@ -32,7 +36,12 @@ io.on('connection', (socket) => {
             from: newMessage.from,
             text: newMessage.text,
             createAt: new Date().getTime()
-        })
+        });
+        // socket.broadcast.emit('newMessage', {
+        //     from: newMessage.from,
+        //     text: newMessage.text,
+        //     createAt: new Date().getTime()
+        // });
     });
 });
 
